@@ -15,7 +15,7 @@ class Choice(models.Model):
 
 class Answer(models.Model):
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
-    user_id = models.CharField()
+    user_id = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
 
 class ChoiceSerializer(serializers.ModelSerializer):
@@ -27,7 +27,7 @@ class QuestionSerializer(serializers.ModelSerializer):
     choices = ChoiceSerializer(many=True)
     class Meta:
         model = Question
-        fields('id', 'text', 'season', 'choices', 'created_on', 'updated_on',)
+        fields = ('id', 'text', 'season', 'choices', 'created_on', 'updated_on',)
 
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
