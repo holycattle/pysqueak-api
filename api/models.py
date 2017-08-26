@@ -24,6 +24,9 @@ class ChoiceSerializer(serializers.ModelSerializer):
         model = Choice
         fields = ('id', 'text', 'version', 'created_on', 'updated_on',)
 
+    def get_version_from_question(self, obj):
+        return obj.question_id
+
 class QuestionSerializer(serializers.ModelSerializer):
     # TODO: create a serializer that returns list of choices for the question
     class Meta:
