@@ -50,10 +50,9 @@ class AnswersView(APIView):
                 return Response(serializer.data, status=status.HTTP_200_OK)
             else:
                 data = {
-                    'message': "Bad request!",
-                    'data': request.data
+                    'data': request.data,
                 }
-                return Response(data, status=status.HTTP_400_BAD_REQUEST)
+                return Response(request.data, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             data = {
                 'message': e,
