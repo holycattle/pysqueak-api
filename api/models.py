@@ -19,6 +19,7 @@ class Answer(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
 class ChoiceSerializer(serializers.ModelSerializer):
+    version = serializers.SerializerMethodField('get_version')
     class Meta:
         model = Choice
         fields = ('id', 'text', 'version', 'created_on', 'updated_on',)
