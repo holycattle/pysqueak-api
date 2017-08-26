@@ -67,7 +67,7 @@ class LatestAnswerView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Answer.DoesNotExist:
             return Response(status=status.HTTP_200_OK)
-        except:
+        except e:
             data = {
                 'message': e,
             }
