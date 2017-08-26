@@ -12,5 +12,5 @@ urlpatterns = [
     url(r'^answers/(?P<k>[0-9]+)/$',\
         AnswersView.as_view(), name='answers-post'),
     url(r'^users/(?P<uuid>([a-z]|[0-9])+)/answers/(?P<ver>[0-9]+)/$',\
-        AnswersView.as_view(), name='latest-answers-post'),
+        LatestAnswerView.as_view(), name='latest-answers-post'),
 ]
