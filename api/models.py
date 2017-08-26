@@ -14,6 +14,7 @@ class Choice(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
 class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
     user_id = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
@@ -34,6 +35,8 @@ class QuestionSerializer(serializers.ModelSerializer):
         fields = ('text', 'version', 'created_on', 'updated_on',)
 
 class AnswerSerializer(serializers.ModelSerializer):
+    choice = serializers.PrimaryKeyRelatedField(queryset=Choice.objects.all())
+    question = serializers.PrimaryKeyRelatedField(queryset=Question.objects.all())
     class Meta:
         model = Answer
-        fields = ('id', 'choice_id', 'user_id', 'created_on',)
+        fields = ('question', 'choice', 'user_id')
