@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 class Question(models.Model):
     version = models.CharField(primary_key=True, max_length=8)
+    title = models.CharField(max_length=255)
     text = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -32,7 +33,7 @@ class QuestionSerializer(serializers.ModelSerializer):
     # TODO: create a serializer that returns list of choices for the question
     class Meta:
         model = Question
-        fields = ('text', 'version', 'created_on', 'updated_on',)
+        fields = ('title', 'text', 'version', 'created_on', 'updated_on',)
 
 class AnswerSerializer(serializers.ModelSerializer):
     choice = serializers.PrimaryKeyRelatedField(queryset=Choice.objects.all())

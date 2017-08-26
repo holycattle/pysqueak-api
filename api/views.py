@@ -58,3 +58,17 @@ class AnswersView(APIView):
                 'message': e,
             }
             return Response(data, status=status.HTTP_403_FORBIDDEN)
+
+class LatestAnswerView(APIView):
+    def get(self, request, uuid, ver, format=None:
+        try:
+            data = Answer.objects.get(user_id=uuid, question_id=ver)
+            serializer = AnswerSerializer(data=data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Answer.DoesNotExist:
+            return Response(status=status.HTTP_200_OK)
+        except:
+            data = {
+                'message': e,
+            }
+            return Response(data, status=status.HTTP_403_FORBIDDEN)
