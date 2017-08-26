@@ -8,7 +8,7 @@ class Choice(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
 class Answer(models.Model):
-    choice_id = models.ForeignKey(Choice, on_delete=models.CASCADE)
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
     user_id = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
 
