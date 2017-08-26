@@ -54,8 +54,8 @@ class AnswersView(APIView):
                     'data': request.data
                 }
                 return Response(data, status=status.HTTP_400_BAD_REQUEST)
-        except:
+        except Exception as e:
             data = {
-                'message': "Version doesn't exist!",
+                'message': e,
             }
             return Response(data, status=status.HTTP_403_FORBIDDEN)
