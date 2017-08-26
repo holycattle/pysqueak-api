@@ -21,13 +21,13 @@ class Answer(models.Model):
 class ChoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Choice
-        fields = ('id', 'text', 'season', 'created_on', 'updated_on',)
+        fields = ('id', 'text', 'version', 'created_on', 'updated_on',)
 
 class QuestionSerializer(serializers.ModelSerializer):
     choices = ChoiceSerializer(many=True)
     class Meta:
         model = Question
-        fields = ('text', 'season', 'choices', 'created_on', 'updated_on',)
+        fields = ('text', 'version', 'choices', 'created_on', 'updated_on',)
 
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
