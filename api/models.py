@@ -24,10 +24,10 @@ class ChoiceSerializer(serializers.ModelSerializer):
         fields = ('id', 'text', 'version', 'created_on', 'updated_on',)
 
 class QuestionSerializer(serializers.ModelSerializer):
-    choices = ChoiceSerializer(many=True)
+    # TODO: create a serializer that returns list of choices for the question
     class Meta:
         model = Question
-        fields = ('text', 'version', 'choices', 'created_on', 'updated_on',)
+        fields = ('text', 'version', 'created_on', 'updated_on',)
 
 class AnswerSerializer(serializers.ModelSerializer):
     class Meta:
