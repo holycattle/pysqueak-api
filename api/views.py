@@ -20,4 +20,7 @@ class ChoicesView(APIView):
             serializer = ChoiceSerializer(choices, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except:
-            return Response(status=status.HTTP_403_FORBIDDEN)
+            data = {
+                'message': "Version doesn't exist!",
+            }
+            return Response(data, status=status.HTTP_403_FORBIDDEN)
