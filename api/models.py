@@ -19,10 +19,13 @@ class Answer(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
 
 class ChoiceSerializer(serializers.ModelSerializer):
-    version = serializers.SerializerMethodField('get_version')
+    version = serializers.SerializerMethodField('get_version_from_question')
     class Meta:
         model = Choice
         fields = ('id', 'text', 'version', 'created_on', 'updated_on',)
+
+    def get_version_from_question(self, obj):
+        return obj.question_id
 
 class QuestionSerializer(serializers.ModelSerializer):
     # TODO: create a serializer that returns list of choices for the question

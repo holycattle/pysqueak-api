@@ -29,7 +29,7 @@ class QuestionsView(APIView):
 class ChoicesView(APIView):
     def get(self, request, k, format=None):
         try:
-            choices = Choice.objects.filter(version=k)
+            choices = Choice.objects.filter(question_id=k)
             serializer = ChoiceSerializer(choices, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except:
