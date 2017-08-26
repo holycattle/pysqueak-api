@@ -2,8 +2,8 @@ from django.db import models
 from rest_framework import serializers
 
 class Question(models.Model):
-    text = models.TextField()
     version = models.CharField(primary_key=True, max_length=8)
+    text = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
