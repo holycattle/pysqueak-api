@@ -48,6 +48,12 @@ class AnswersView(APIView):
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                data = {
+                    'message': "Bad request!",
+                    'data': request.data
+                }
+                return Response(data, status=status.HTTP_400_BAD_REQUEST)
         except:
             data = {
                 'message': "Version doesn't exist!",
