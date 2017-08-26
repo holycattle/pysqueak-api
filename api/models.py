@@ -1,6 +1,12 @@
 from django.db import models
 from rest_framework import serializers
 
+class Question(models.Model):
+    text = models.TextField()
+    version = models.CharField(max_length=4)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
 class Choice(models.Model):
     text = models.CharField(max_length=255)
     version = models.CharField(max_length=4)
@@ -8,7 +14,7 @@ class Choice(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
 class Answer(models.Model):
-    choice_id = models.ForeignKey(Choice, on_delete=models.CASCADE)
+    choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
     user_id = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
 
