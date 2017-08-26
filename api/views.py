@@ -29,9 +29,22 @@ class QuestionsView(APIView):
 class ChoicesView(APIView):
     def get(self, request, k, format=None):
         try:
-            choices = Choice.objects.filter(version=k)
+            choices = Choice.objects.filter(question_id=k)
             serializer = ChoiceSerializer(choices, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
+        except:
+            data = {
+                'message': "Version doesn't exist!",
+            }
+            return Response(data, status=status.HTTP_403_FORBIDDEN)
+
+class AnswersView(APIView):
+    def post(self, request, k, format=None):
+        try:
+            serializer = AnswerSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_200_OK)
         except:
             data = {
                 'message': "Version doesn't exist!",
