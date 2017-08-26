@@ -63,6 +63,10 @@ class LatestAnswerView(APIView):
     def get(self, request, uuid, ver, format=None):
         try:
             data = Answer.objects.filter(user_id=uuid, question_id=ver)[:1]
+            if len(data) > 0:
+                data = data[0]
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = AnswerSerializer(data)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Answer.DoesNotExist:
