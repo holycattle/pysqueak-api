@@ -24,7 +24,7 @@ class ChoiceAdmin(admin.ModelAdmin):
 class AnswerAdmin(admin.ModelAdmin):
     list_display = (
         # put all other fields you want to be shown in listing
-        'user_id', 'choice_value', 'version',
+        'user_id', 'choice_value', 'version', 'created_on',
     )
     raw_id_fields = ('question', 'choice',)
     def version(self, obj):
