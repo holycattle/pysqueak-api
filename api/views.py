@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from api.models import Choice, Answer, Question, ChoiceSerializer,\
     AnswerSerializer, QuestionSerializer
+from django.db import connection
 
 def get_not_implemented_message():
     return {'code':200, 'data':['Not yet implemented']}
@@ -75,4 +76,32 @@ class LatestAnswerView(APIView):
             data = {
                 'message': e,
             }
+            return Response(data, status=status.HTTP_403_FORBIDDEN)
+
+class SummaryView(APIView):
+    def get(self, request, format=None):
+        try:
+            cursor = connection.cursor()
+            query = '''
+                SELECT
+                  api_question.version as version, api_choice.text as choice,
+                  COUNT(DISTINCT a.user_id) as answer_count
+                FROM api_answer as a
+                INNER JOIN api_question ON a.question_id = version
+                INNER JOIN api_choice ON choice_id = api_choice.id
+                WHERE version <> '0018' AND version <> '0019'
+                GROUP BY version, choice ORDER BY version;
+            '''
+            cursor.execute(query)
+            data = cursor.fetchall()
+            res = []
+            for row in data:
+                res.append({
+                    "version": row[0],
+                    "answer": row[1],
+                    "count": row[2],
+                })
+            return Response({"data":res}, status=status.HTTP_200_OK)
+        except Exception as e:
+            data = { "message": "Oops", }
             return Response(data, status=status.HTTP_403_FORBIDDEN)

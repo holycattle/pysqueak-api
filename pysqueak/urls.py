@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.contrib import admin
-from api.views import api_root, ChoicesView, QuestionsView, AnswersView, LatestAnswerView
+from api.views import api_root, ChoicesView, QuestionsView, AnswersView, LatestAnswerView, SummaryView
 
 urlpatterns = [
     url(r'^$', api_root),
@@ -13,4 +13,5 @@ urlpatterns = [
         AnswersView.as_view(), name='answers-post'),
     url(r'^users/(?P<uuid>([a-z]|[0-9])+)/answers/(?P<ver>[0-9]+)/$',\
         LatestAnswerView.as_view(), name='latest-answers-post'),
+    url(r'^summary/$', SummaryView.as_view(), name='summary')
 ]
