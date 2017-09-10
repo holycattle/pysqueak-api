@@ -80,8 +80,8 @@ class LatestAnswerView(APIView):
 
 class SummaryView(APIView):
     def get(self, request, format=None):
+        cursor = connection.cursor()
         try:
-            cursor = connection.cursor()
             query = '''
                 SELECT
                   api_question.version as version, api_choice.text as choice,
@@ -105,3 +105,5 @@ class SummaryView(APIView):
         except Exception as e:
             data = { "message": "Oops", }
             return Response(data, status=status.HTTP_403_FORBIDDEN)
+        finally:
+            cursor.close()
